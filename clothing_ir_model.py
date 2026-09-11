@@ -609,7 +609,73 @@ class ClothingIRModel:
             qvec = {k: v / norm for k, v in qvec.items()}
         return qvec
 
-    # -- evaluation -------------------------------------------------------
+    def print_term_positions(self, query: str, doc_id: str) -> None:
+        """Print each query term's stored positions in *doc_id* (Part D evidence).
+
+        This shows, in black and white, that phrase/proximity results come
+        from the positional index (term -> docID -> [positions]) and not
+        merely from checking "do both terms occur somewhere in this doc".
+        """
+        query_terms = self.tokenize(query)
+        doc = next((d for d in self.documents if d.doc_id == doc_id), None)
+        if not doc:
+            return
+        print(f"\n  Positional-index evidence for [{doc_id}] \"{query}\":")
+        for term in query_terms:
+            positions = self.positional_index.get(term, {}).get(doc_id, [])
+            print(f"    '{term}' -> positions {positions} in {doc_id}")
+
+    # -- deliverable exports ------------------------------------------------
+
+    def export_dictionary(self, filepath: str) -> None:
+        """Write the full dictionary (term, df, postings) to a text file.
+
+        Conceptual format: term -> df -> [(docID, tf), ...], sorted
+        alphabetically by term for readability. This is a required
+        deliverable (Part A/D) separate from the console-only top-20 view
+        printed by print_stats().
+        """
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(f"DICTIONARY / INVERTED INDEX  (N = {self.num_docs} documents)\n")
+            f.write(f"Unique terms: {len(self.inverted_index)}\n")
+            f.write("=" * 75 + "\n")
+            f.write("format: term  df=<document frequency>\n")
+            f.write("        -> (docID, tf)  for every document containing the term\n")
+            f.write("=" * 75 + "\n\n")
+            for term in sorted(self.inverted_index.keys()):
+                doc_ids = self.inverted_index[term]
+                df = len(doc_ids)
+                f.write(f"{term}  df={df}\n")
+                for doc_id in sorted(doc_ids):
+                    tf = len(self.positional_index[term].get(doc_id, []))
+                    f.write(f"    -> ({doc_id}, tf={tf})\n")
+                f.write("\n")
+        print(f"  Dictionary exported to {filepath}")
+
+    def export_positional_index(self, filepath: str) -> None:
+        """Write the full positional index (term, df, docID, tf, positions).
+
+        Conceptual format: term -> df -> [(docID, tf, [p1, p2, ...]), ...],
+        exactly as specified in Part C of the assignment.
+        """
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(f"POSITIONAL INDEX  (N = {self.num_docs} documents)\n")
+            f.write(f"Unique terms: {len(self.positional_index)}\n")
+            f.write("=" * 75 + "\n")
+            f.write("format: term  df=<document frequency>\n")
+            f.write("        -> (docID, tf, [positions])  for every document containing the term\n")
+            f.write("=" * 75 + "\n\n")
+            for term in sorted(self.positional_index.keys()):
+                postings = self.positional_index[term]
+                df = len(postings)
+                f.write(f"{term}  df={df}\n")
+                for doc_id in sorted(postings.keys()):
+                    positions = postings[doc_id]
+                    f.write(f"    -> ({doc_id}, tf={len(positions)}, positions={positions})\n")
+                f.write("\n")
+        print(f"  Positional index exported to {filepath}")
+
+
 
     @staticmethod
     def average_precision(ranked_ids: list[str], relevant_ids: set[str]) -> float:
@@ -828,6 +894,7 @@ def interactive_mode(ir: ClothingIRModel) -> None:
     print("    expand [query]    - Query expansion + TF-IDF search")
     print("    cat [category]    - Filter by category")
     print("    stats             - Show corpus statistics")
+    print("    export            - Save dictionary + positional index to files")
     print("    history           - Show query history")
     print("    eval              - Run evaluation on test queries")
     print("    help              - Show this help message")
@@ -857,6 +924,10 @@ def interactive_mode(ir: ClothingIRModel) -> None:
 
         elif user_input.lower() == 'stats':
             ir.print_stats()
+
+        elif user_input.lower() == 'export':
+            ir.export_dictionary('dictionary_output.txt')
+            ir.export_positional_index('positional_index_output.txt')
 
         elif user_input.lower() == 'history':
             ir.print_query_history()
@@ -905,19 +976,33 @@ def interactive_mode(ir: ClothingIRModel) -> None:
                 print(f"  {'-'*60}")
                 for doc in docs:
                     print(f"  [{doc.doc_id}] {doc.category}: {doc.title}")
+                ir.print_term_positions(query, docs[0].doc_id)
             ir.query_history.append({'query': query, 'method': 'phrase', 'results': len(docs)})
 
         elif user_input.lower().startswith('near '):
-            query = user_input[5:].strip()
-            docs = ir.phrase_search(query, max_gap=4)
-            if not docs:
-                print("  No proximity matches found.")
+            rest = user_input[5:].strip()
+            # Optional leading integer sets k (max token-position gap between
+            # consecutive query terms). Falls back to k=4 if none is given,
+            # e.g. "near 3 cotton shirt" -> k=3, "near cotton shirt" -> k=4.
+            parts = rest.split(maxsplit=1)
+            if parts and parts[0].isdigit() and len(parts) == 2:
+                k = int(parts[0])
+                query = parts[1]
             else:
-                print(f"\n  Proximity Search Result (within 4 words): {len(docs)} documents")
+                k = 4
+                query = rest
+            docs = ir.phrase_search(query, max_gap=k)
+            if not docs:
+                print(f"  No proximity matches found (k={k}).")
+            else:
+                print(f"\n  Proximity Search Result (within k={k} token positions, ordered): {len(docs)} documents")
                 print(f"  {'-'*60}")
                 for doc in docs:
                     print(f"  [{doc.doc_id}] {doc.category}: {doc.title}")
-            ir.query_history.append({'query': query, 'method': 'near', 'results': len(docs)})
+                # Evidence that the positional index drives this result: show
+                # the actual matched term positions for the top match.
+                ir.print_term_positions(query, docs[0].doc_id)
+            ir.query_history.append({'query': f"k={k}: {query}", 'method': 'near', 'results': len(docs)})
 
         elif user_input.lower().startswith('and '):
             query = user_input[4:].strip()
