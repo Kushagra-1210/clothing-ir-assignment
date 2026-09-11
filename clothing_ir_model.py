@@ -168,6 +168,14 @@ class ClothingIRModel:
         self.inverted_index: dict[str, set] = defaultdict(set)
         self.positional_index: dict[str, dict[str, list[int]]] = defaultdict(dict)
         self.idf: dict[str, float] = {}
+        # --- lnc.ltc (Assignment Part B) ---
+        # log_idf[t] = log10(N / df_t), used ONLY for query weights (the "t" in ltc).
+        # doc_lnc_vectors[doc_id] holds the cosine-normalized "lnc" document
+        # vector: weight = 1 + log10(tf), with NO idf applied, as required by
+        # the assignment's lnc.ltc scheme. Kept separate from doc_vectors
+        # (which use the BM25-style idf weighting used by tfidf_search/bm25).
+        self.log_idf: dict[str, float] = {}
+        self.doc_lnc_vectors: dict[str, dict] = {}
         self.doc_vectors: dict[str, dict] = {}
         self.doc_lengths: dict[str, int] = {}
         self.avg_doc_length: float = 0.0
@@ -251,6 +259,8 @@ class ClothingIRModel:
         for term, doc_ids in self.inverted_index.items():
             df = len(doc_ids)
             self.idf[term] = math.log((self.num_docs - df + 0.5) / (df + 0.5) + 1)
+            # Assignment-spec idf, used only for query-side "t" weighting in lnc.ltc.
+            self.log_idf[term] = math.log10(self.num_docs / df) if df > 0 else 0.0
 
         for doc in self.documents:
             doc.tfidf = {
@@ -261,6 +271,18 @@ class ClothingIRModel:
             if norm > 0:
                 doc.tfidf = {k: v / norm for k, v in doc.tfidf.items()}
             self.doc_vectors[doc.doc_id] = doc.tfidf
+
+        # --- lnc.ltc document vectors (Assignment Part B) ---
+        # "lnc": log-tf weight (1 + log10(tf)) for tf > 0, no idf component ("n"),
+        # then cosine-normalized ("c"). Built from RAW term counts, not the
+        # augmented (count / max_freq) tf used elsewhere in this file.
+        for doc in self.documents:
+            raw_tf = Counter(doc.terms)
+            lnc = {term: 1.0 + math.log10(count) for term, count in raw_tf.items()}
+            norm = math.sqrt(sum(v ** 2 for v in lnc.values()))
+            if norm > 0:
+                lnc = {k: v / norm for k, v in lnc.items()}
+            self.doc_lnc_vectors[doc.doc_id] = lnc
 
         print(f"Index built: {len(self.inverted_index)} unique terms.")
 
@@ -372,6 +394,56 @@ class ClothingIRModel:
                 scored.append((doc, sim))
 
         scored.sort(key=lambda x: x[1], reverse=True)
+        return scored[:top_k]
+
+    def lnc_ltc_search(self, query: str, top_k: int = 10) -> list[tuple[Document, float]]:
+        """Rank documents using the assignment's exact lnc.ltc weighting scheme.
+
+        Document weight (the "lnc" side): w_d,t = 1 + log10(tf) for tf > 0,
+        NO idf applied, then the document vector is cosine-normalized.
+
+        Query weight (the "ltc" side): w_q,t = (1 + log10(tf)) * log10(N/df),
+        then the query vector is cosine-normalized.
+
+        Because both vectors are already unit-normalized, the dot product
+        between them IS the cosine similarity (no extra division needed).
+
+        Results are sorted by decreasing similarity; ties are broken by
+        increasing document ID, exactly as the assignment specifies.
+        """
+        query_terms = self.tokenize(query)
+        if not query_terms:
+            return []
+
+        tf_query = Counter(query_terms)
+        query_vec = {}
+        for term, count in tf_query.items():
+            log_idf = self.log_idf.get(term, 0.0)  # 0.0 for out-of-vocabulary terms
+            if log_idf == 0.0:
+                continue  # term contributes nothing to the query vector
+            query_vec[term] = (1.0 + math.log10(count)) * log_idf
+
+        norm = math.sqrt(sum(v ** 2 for v in query_vec.values()))
+        if norm > 0:
+            query_vec = {k: v / norm for k, v in query_vec.items()}
+
+        candidate_ids = set()
+        for term in query_terms:
+            candidate_ids.update(self.inverted_index.get(term, set()))
+
+        scored = []
+        for doc_id in candidate_ids:
+            doc_vec = self.doc_lnc_vectors.get(doc_id, {})
+            common = set(query_vec) & set(doc_vec)
+            if not common:
+                continue
+            sim = sum(query_vec[t] * doc_vec[t] for t in common)
+            if sim > 0:
+                doc = next(d for d in self.documents if d.doc_id == doc_id)
+                scored.append((doc, sim))
+
+        # Decreasing similarity; ties broken by increasing docID (per spec).
+        scored.sort(key=lambda x: (-x[1], x[0].doc_id))
         return scored[:top_k]
 
     def bm25_search(self, query: str, top_k: int = 10) -> list[tuple[Document, float]]:
@@ -744,7 +816,8 @@ def interactive_mode(ir: ClothingIRModel) -> None:
     print("  CLOTHING INFORMATION RETRIEVAL SYSTEM - Interactive Mode")
     print(f"{'='*75}")
     print("  Commands:")
-    print("    [query]           - TF-IDF cosine similarity search")
+    print("    [query]           - lnc.ltc cosine similarity search (assignment VSM, Part B)")
+    print("    augtfidf [query]  - Augmented-TF / BM25-idf cosine search (extra)")
     print("    bm25 [query]      - BM25 ranked search")
     print("    jaccard [query]   - Jaccard similarity search")
     print("    phrase [query]    - Phrase search (terms in order, adjacent)")
@@ -776,8 +849,9 @@ def interactive_mode(ir: ClothingIRModel) -> None:
             break
 
         elif user_input.lower() == 'help':
-            print("  Commands: [query], bm25 [query], jaccard [query], phrase [query],")
-            print("            near [query], and [query], or [query], not [query],")
+            print("  Commands: [query] (lnc.ltc), augtfidf [query], bm25 [query],")
+            print("            jaccard [query], phrase [query], near [query],")
+            print("            and [query], or [query], not [query],")
             print("            expand [query], cat [category], stats, history, eval,")
             print("            help, quit")
 
@@ -802,6 +876,12 @@ def interactive_mode(ir: ClothingIRModel) -> None:
                     print(f"    [{d.doc_id}] {d.title}")
             else:
                 print(f"  Category '{cat_name}' not found.")
+
+        elif user_input.lower().startswith('augtfidf '):
+            query = user_input[9:].strip()
+            results = ir.tfidf_search(query)
+            ir.print_results(results, method="Augmented-TF / BM25-idf (extra)")
+            ir.query_history.append({'query': query, 'method': 'augtfidf', 'results': len(results)})
 
         elif user_input.lower().startswith('bm25 '):
             query = user_input[5:].strip()
@@ -867,9 +947,10 @@ def interactive_mode(ir: ClothingIRModel) -> None:
             ir.query_history.append({'query': query, 'method': 'expand', 'results': len(results)})
 
         else:
-            results = ir.tfidf_search(user_input)
-            ir.print_results(results, method="TF-IDF Cosine Similarity")
-            ir.query_history.append({'query': user_input, 'method': 'tfidf', 'results': len(results)})
+            # Default free-text search: the assignment-mandated lnc.ltc VSM.
+            results = ir.lnc_ltc_search(user_input)
+            ir.print_results(results, method="lnc.ltc Cosine Similarity (VSM)")
+            ir.query_history.append({'query': user_input, 'method': 'lnc.ltc', 'results': len(results)})
 
 
 # ---------------------------------------------------------------------------
