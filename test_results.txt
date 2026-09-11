@@ -1,0 +1,299 @@
+PART E — TEST RESULTS
+Corpus size (N): 100   Unique terms: 122
+
+==============================================================================
+  1. FREE-TEXT QUERIES (lnc.ltc cosine similarity, top 10)
+==============================================================================
+
+Query: "black cotton t-shirt for men"
+   1. [D001] T-Shirt    Men's Cotton Crew Neck T-Shirt - Black        score=0.335967
+   2. [D071] T-Shirt    Men's Oversized Graphic T-Shirt - Black       score=0.326991
+   3. [D041] T-Shirt    Men's Cotton Crew Neck T-Shirt - Maroon       score=0.212199
+   4. [D061] T-Shirt    Men's Cotton Crew Neck T-Shirt - White        score=0.212199
+   5. [D081] T-Shirt    Men's Cotton Crew Neck T-Shirt - Mustard      score=0.212199
+   6. [D021] T-Shirt    Men's Cotton Crew Neck T-Shirt - Sky Blue     score=0.207440
+   7. [D011] T-Shirt    Men's Oversized Graphic T-Shirt - Mustard     score=0.201637
+   8. [D031] T-Shirt    Men's Oversized Graphic T-Shirt - Olive Green score=0.197002
+   9. [D051] T-Shirt    Men's Oversized Graphic T-Shirt - Navy Blue   score=0.197002
+  10. [D091] T-Shirt    Men's Oversized Graphic T-Shirt - Sky Blue    score=0.197002
+
+Query: "women's printed saree"
+   1. [D005] Saree      Women's Printed Daily Wear Saree - Blue       score=0.334248
+   2. [D025] Saree      Women's Printed Daily Wear Saree - Maroon     score=0.334248
+   3. [D045] Saree      Women's Printed Daily Wear Saree - Purple     score=0.334248
+   4. [D065] Saree      Women's Printed Daily Wear Saree - Green      score=0.334248
+   5. [D085] Saree      Women's Printed Daily Wear Saree - Red        score=0.334248
+   6. [D015] Saree      Women's Cotton Handloom Saree - Red           score=0.295592
+   7. [D035] Saree      Women's Cotton Handloom Saree - Yellow        score=0.295592
+   8. [D055] Saree      Women's Cotton Handloom Saree - Pink          score=0.295592
+   9. [D075] Saree      Women's Cotton Handloom Saree - Blue          score=0.295592
+  10. [D095] Saree      Women's Cotton Handloom Saree - Maroon        score=0.295592
+
+Query: "regular fit denim jeans grey"
+   1. [D023] Jeans      Men's Regular Fit Denim Jeans - Grey          score=0.409046
+   2. [D083] Jeans      Men's Regular Fit Denim Jeans - Grey          score=0.409046
+   3. [D043] Jeans      Men's Regular Fit Denim Jeans - Grey          score=0.406334
+   4. [D003] Jeans      Men's Regular Fit Denim Jeans - Grey          score=0.403340
+   5. [D063] Jeans      Men's Regular Fit Denim Jeans - Grey          score=0.403340
+   6. [D053] Jeans      Men's Slim Fit Stretch Jeans - Grey           score=0.368862
+   7. [D013] Jeans      Men's Slim Fit Stretch Jeans - Grey           score=0.368454
+   8. [D073] Jeans      Men's Slim Fit Stretch Jeans - Grey           score=0.368454
+   9. [D033] Jeans      Men's Slim Fit Stretch Jeans - Grey           score=0.365769
+  10. [D093] Jeans      Men's Slim Fit Stretch Jeans - Grey           score=0.365769
+
+Query: "winter jacket for women"
+   1. [D058] Jacket     Women's Quilted Winter Jacket - Black         score=0.315911
+   2. [D018] Jacket     Women's Quilted Winter Jacket - Beige         score=0.313645
+   3. [D038] Jacket     Women's Quilted Winter Jacket - Olive         score=0.313645
+   4. [D078] Jacket     Women's Quilted Winter Jacket - Beige         score=0.313645
+   5. [D098] Jacket     Women's Quilted Winter Jacket - Olive         score=0.313645
+   6. [D028] Jacket     Women's Casual Puffer Jacket - Black          score=0.270755
+   7. [D088] Jacket     Women's Casual Puffer Jacket - Black          score=0.270755
+   8. [D008] Jacket     Women's Casual Puffer Jacket - Olive          score=0.268858
+   9. [D048] Jacket     Women's Casual Puffer Jacket - Beige          score=0.268858
+  10. [D068] Jacket     Women's Casual Puffer Jacket - Olive          score=0.268858
+
+Query: "comfortable breathable kurta"
+   1. [D004] Kurta      Men's Regular Fit Kurta - Pink                score=0.266831
+   2. [D064] Kurta      Men's Regular Fit Kurta - White               score=0.266831
+   3. [D024] Kurta      Men's Regular Fit Kurta - Teal                score=0.264421
+   4. [D084] Kurta      Men's Regular Fit Kurta - Beige               score=0.264421
+   5. [D034] Kurta      Women's Printed Straight Kurta - Maroon       score=0.263832
+   6. [D094] Kurta      Women's Printed Straight Kurta - Teal         score=0.263832
+   7. [D014] Kurta      Women's Printed Straight Kurta - Beige        score=0.262370
+   8. [D074] Kurta      Women's Printed Straight Kurta - Pink         score=0.262370
+   9. [D054] Kurta      Women's Printed Straight Kurta - Mustard      score=0.261502
+  10. [D044] Kurta      Men's Regular Fit Kurta - Navy Blue           score=0.259137
+
+Query: "slim fit checked shirt"
+   1. [D022] Shirt      Men's Checked Cotton Shirt - White            score=0.345452
+   2. [D082] Shirt      Men's Checked Cotton Shirt - Blue             score=0.345452
+   3. [D002] Shirt      Men's Checked Cotton Shirt - Black            score=0.343127
+   4. [D042] Shirt      Men's Checked Cotton Shirt - Maroon           score=0.343127
+   5. [D062] Shirt      Men's Checked Cotton Shirt - Olive            score=0.343127
+   6. [D052] Shirt      Women's Striped Casual Shirt - Beige          score=0.211935
+   7. [D012] Shirt      Women's Striped Casual Shirt - Blue           score=0.210493
+   8. [D072] Shirt      Women's Striped Casual Shirt - Black          score=0.210493
+   9. [D092] Shirt      Women's Striped Casual Shirt - White          score=0.210493
+  10. [D032] Shirt      Women's Striped Casual Shirt - Light Pink     score=0.205602
+
+Query: "floral printed dress"
+   1. [D016] Dress      Women's Casual Fit Dress - Floral Pink        score=0.284566
+   2. [D086] Dress      Women's Solid Midi Dress - Floral Pink        score=0.275966
+   3. [D076] Dress      Women's Casual Fit Dress - Green              score=0.108096
+   4. [D036] Dress      Women's Casual Fit Dress - Black              score=0.107075
+   5. [D056] Dress      Women's Casual Fit Dress - Yellow             score=0.107075
+   6. [D046] Dress      Women's Solid Midi Dress - Lavender           score=0.105624
+   7. [D006] Dress      Women's Solid Midi Dress - Green              score=0.104670
+   8. [D066] Dress      Women's Solid Midi Dress - Maroon             score=0.104670
+   9. [D096] Dress      Women's Casual Fit Dress - Navy Blue          score=0.104487
+  10. [D026] Dress      Women's Solid Midi Dress - Navy Blue          score=0.102249
+
+Query: "fleece hoodie sweatshirt"
+   1. [D037] Hoodie     Unisex Fleece Pullover Hoodie - Black         score=0.247266
+   2. [D057] Hoodie     Unisex Fleece Pullover Hoodie - Wine          score=0.247266
+   3. [D097] Hoodie     Unisex Fleece Pullover Hoodie - Black         score=0.247266
+   4. [D017] Hoodie     Unisex Fleece Pullover Hoodie - Navy Blue     score=0.241395
+   5. [D077] Hoodie     Unisex Fleece Pullover Hoodie - Navy Blue     score=0.241395
+   6. [D010] Sweatshirt Women's Fleece Sweatshirt - Black             score=0.234225
+   7. [D070] Sweatshirt Women's Fleece Sweatshirt - Black             score=0.234225
+   8. [D030] Sweatshirt Women's Fleece Sweatshirt - Maroon            score=0.232614
+   9. [D090] Sweatshirt Women's Fleece Sweatshirt - Maroon            score=0.232614
+  10. [D007] Hoodie     Women's Oversized Fleece Hoodie - Black       score=0.230062
+
+Query: "stretch leggings for gym"
+   1. [D029] Leggings   Women's High Waist Stretch Leggings - Grey    score=0.305193
+   2. [D049] Leggings   Women's High Waist Stretch Leggings - Black   score=0.305193
+   3. [D089] Leggings   Women's High Waist Stretch Leggings - Grey    score=0.305193
+   4. [D009] Leggings   Women's High Waist Stretch Leggings - Olive Green score=0.298301
+   5. [D069] Leggings   Women's High Waist Stretch Leggings - Olive Green score=0.298301
+   6. [D019] Leggings   Women's Printed Active Leggings - Black       score=0.162094
+   7. [D059] Leggings   Women's Printed Active Leggings - Grey        score=0.162094
+   8. [D079] Leggings   Women's Printed Active Leggings - Black       score=0.162094
+   9. [D039] Leggings   Women's Printed Active Leggings - Olive Green score=0.158421
+  10. [D099] Leggings   Women's Printed Active Leggings - Olive Green score=0.158421
+
+Query: "cotton kurta festive wear"
+   1. [D034] Kurta      Women's Printed Straight Kurta - Maroon       score=0.246684
+   2. [D094] Kurta      Women's Printed Straight Kurta - Teal         score=0.246684
+   3. [D014] Kurta      Women's Printed Straight Kurta - Beige        score=0.245317
+   4. [D074] Kurta      Women's Printed Straight Kurta - Pink         score=0.245317
+   5. [D054] Kurta      Women's Printed Straight Kurta - Mustard      score=0.244506
+   6. [D004] Kurta      Men's Regular Fit Kurta - Pink                score=0.215047
+   7. [D064] Kurta      Men's Regular Fit Kurta - White               score=0.215047
+   8. [D024] Kurta      Men's Regular Fit Kurta - Teal                score=0.213105
+   9. [D084] Kurta      Men's Regular Fit Kurta - Beige               score=0.213105
+  10. [D044] Kurta      Men's Regular Fit Kurta - Navy Blue           score=0.208846
+
+==============================================================================
+  2. EXACT PHRASE QUERIES (positional index, adjacent terms only)
+==============================================================================
+
+Phrase: "cotton shirt"
+  5 document(s) matched.
+    [D002] Shirt: Men's Checked Cotton Shirt - Black
+    [D022] Shirt: Men's Checked Cotton Shirt - White
+    [D042] Shirt: Men's Checked Cotton Shirt - Maroon
+    [D062] Shirt: Men's Checked Cotton Shirt - Olive
+    [D082] Shirt: Men's Checked Cotton Shirt - Blue
+  Position evidence in [D002]:
+    'cotton' -> [2, 7]
+    'shirt' -> [3, 8, 13]
+
+Phrase: "stretch denim"
+  7 document(s) matched.
+    [D003] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D013] Jeans: Men's Slim Fit Stretch Jeans - Grey
+    [D033] Jeans: Men's Slim Fit Stretch Jeans - Grey
+    [D043] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D063] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D073] Jeans: Men's Slim Fit Stretch Jeans - Grey
+    [D093] Jeans: Men's Slim Fit Stretch Jeans - Grey
+  Position evidence in [D003]:
+    'stretch' -> [14]
+    'denim' -> [3, 9, 15]
+
+Phrase: "winter wear"
+  20 document(s) matched.
+    [D008] Jacket: Women's Casual Puffer Jacket - Olive
+    [D010] Sweatshirt: Women's Fleece Sweatshirt - Black
+    [D018] Jacket: Women's Quilted Winter Jacket - Beige
+    [D020] Sweatshirt: Men's Regular Fit Sweatshirt - Navy Blue
+    [D028] Jacket: Women's Casual Puffer Jacket - Black
+    [D030] Sweatshirt: Women's Fleece Sweatshirt - Maroon
+    [D038] Jacket: Women's Quilted Winter Jacket - Olive
+    [D040] Sweatshirt: Men's Regular Fit Sweatshirt - Black
+    [D048] Jacket: Women's Casual Puffer Jacket - Beige
+    [D050] Sweatshirt: Women's Fleece Sweatshirt - Navy Blue
+  Position evidence in [D008]:
+    'winter' -> [20]
+    'wear' -> [17, 21]
+
+Phrase: "regular fit"
+  15 document(s) matched.
+    [D003] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D004] Kurta: Men's Regular Fit Kurta - Pink
+    [D020] Sweatshirt: Men's Regular Fit Sweatshirt - Navy Blue
+    [D023] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D024] Kurta: Men's Regular Fit Kurta - Teal
+    [D040] Sweatshirt: Men's Regular Fit Sweatshirt - Black
+    [D043] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D044] Kurta: Men's Regular Fit Kurta - Navy Blue
+    [D060] Sweatshirt: Men's Regular Fit Sweatshirt - Maroon
+    [D063] Jeans: Men's Regular Fit Denim Jeans - Grey
+  Position evidence in [D003]:
+    'regular' -> [1, 7, 46]
+    'fit' -> [2, 8]
+
+Phrase: "high waist"
+  10 document(s) matched.
+    [D009] Leggings: Women's High Waist Stretch Leggings - Olive Green
+    [D019] Leggings: Women's Printed Active Leggings - Black
+    [D029] Leggings: Women's High Waist Stretch Leggings - Grey
+    [D039] Leggings: Women's Printed Active Leggings - Olive Green
+    [D049] Leggings: Women's High Waist Stretch Leggings - Black
+    [D059] Leggings: Women's Printed Active Leggings - Grey
+    [D069] Leggings: Women's High Waist Stretch Leggings - Olive Green
+    [D079] Leggings: Women's Printed Active Leggings - Black
+    [D089] Leggings: Women's High Waist Stretch Leggings - Grey
+    [D099] Leggings: Women's Printed Active Leggings - Olive Green
+  Position evidence in [D009]:
+    'high' -> [1, 8, 25]
+    'waist' -> [2, 9, 26]
+
+Phrase: "zip closure"
+  0 document(s) matched.
+
+==============================================================================
+  3. PROXIMITY QUERIES (ordered, within k token positions)
+==============================================================================
+
+Proximity: "black cotton"  k=1
+  0 document(s) matched.
+
+Proximity: "black cotton"  k=2
+  5 document(s) matched.
+    [D001] T-Shirt: Men's Cotton Crew Neck T-Shirt - Black
+    [D010] Sweatshirt: Women's Fleece Sweatshirt - Black
+    [D049] Leggings: Women's High Waist Stretch Leggings - Black
+    [D070] Sweatshirt: Women's Fleece Sweatshirt - Black
+    [D071] T-Shirt: Men's Oversized Graphic T-Shirt - Black
+
+Proximity: "black cotton"  k=3
+  10 document(s) matched.
+    [D001] T-Shirt: Men's Cotton Crew Neck T-Shirt - Black
+    [D002] Shirt: Men's Checked Cotton Shirt - Black
+    [D007] Hoodie: Women's Oversized Fleece Hoodie - Black
+    [D010] Sweatshirt: Women's Fleece Sweatshirt - Black
+    [D040] Sweatshirt: Men's Regular Fit Sweatshirt - Black
+    [D049] Leggings: Women's High Waist Stretch Leggings - Black
+    [D067] Hoodie: Women's Oversized Fleece Hoodie - Black
+    [D070] Sweatshirt: Women's Fleece Sweatshirt - Black
+    [D071] T-Shirt: Men's Oversized Graphic T-Shirt - Black
+    [D100] Sweatshirt: Men's Regular Fit Sweatshirt - Black
+
+Proximity: "winter wear"  k=3
+  20 document(s) matched.
+    [D008] Jacket: Women's Casual Puffer Jacket - Olive
+    [D010] Sweatshirt: Women's Fleece Sweatshirt - Black
+    [D018] Jacket: Women's Quilted Winter Jacket - Beige
+    [D020] Sweatshirt: Men's Regular Fit Sweatshirt - Navy Blue
+    [D028] Jacket: Women's Casual Puffer Jacket - Black
+    [D030] Sweatshirt: Women's Fleece Sweatshirt - Maroon
+    [D038] Jacket: Women's Quilted Winter Jacket - Olive
+    [D040] Sweatshirt: Men's Regular Fit Sweatshirt - Black
+    [D048] Jacket: Women's Casual Puffer Jacket - Beige
+    [D050] Sweatshirt: Women's Fleece Sweatshirt - Navy Blue
+
+Proximity: "durable grey"  k=6
+  13 document(s) matched.
+    [D003] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D013] Jeans: Men's Slim Fit Stretch Jeans - Grey
+    [D023] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D029] Leggings: Women's High Waist Stretch Leggings - Grey
+    [D033] Jeans: Men's Slim Fit Stretch Jeans - Grey
+    [D043] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D053] Jeans: Men's Slim Fit Stretch Jeans - Grey
+    [D059] Leggings: Women's Printed Active Leggings - Grey
+    [D063] Jeans: Men's Regular Fit Denim Jeans - Grey
+    [D073] Jeans: Men's Slim Fit Stretch Jeans - Grey
+
+==============================================================================
+  4. OUT-OF-VOCABULARY QUERY (term absent from corpus)
+==============================================================================
+
+Query: "sequined tuxedo blazer"
+  Tokenized/stemmed terms: ['sequin', 'tuxedo', 'blazer']
+  Terms found in dictionary: NONE
+  lnc.ltc results: 0 document(s)
+
+==============================================================================
+  5. CASES WHERE POSITIONAL INFORMATION CHANGES THE RESULT
+==============================================================================
+
+Case A - 'black cotton' at increasing k:
+  Ordinary VSM retrieval treats a query as a bag of words: any
+  document containing 'black' and 'cotton' anywhere scores > 0,
+  regardless of where the words sit relative to each other.
+  Positional (proximity) retrieval is stricter -- it only accepts
+  documents where 'black' is followed by 'cotton' within k
+  positions. In this corpus, D001 has 'black' at position 5 and
+  'cotton' at position 7 (a gap of 2). At k=1 (adjacent only) this
+  produces 0 matching documents; at k=2 it jumps to 5 documents;
+  at k=3 it reaches 10. Plain VSM cosine similarity would have
+  ranked D001 as relevant from the very first free-text query --
+  positional retrieval shows there is no meaningfully 'adjacent'
+  relationship between the words until k is loosened.
+
+Case B - 'zip closure':
+  The free-text lnc.ltc search for 'zip closure' still returns
+  10 ranked documents (scores around 0.10), because several
+  documents separately contain 'zip' OR 'closure' somewhere in
+  their text, which is enough for a nonzero cosine score. The
+  exact phrase search for the same two words returns 0 documents
+  in every doc in this corpus -- no document ever places 'zip'
+  and 'closure' as adjacent, in-order terms. This is the clearest
+  demonstration that VSM and positional retrieval answer different
+  questions: VSM asks 'how much vocabulary overlap is there',
+  while the positional index asks 'do these words actually form
+  this phrase in the text'.
