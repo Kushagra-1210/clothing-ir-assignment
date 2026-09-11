@@ -1,5 +1,9 @@
 # Clothing Information Retrieval System
 
+## Group Members
+- Kushagra Bansal (2410110184)
+- Bharat Parashar (2310110079)
+
 An information retrieval (IR) system built for **Assignment 1 (CSD358)**. It
 indexes a corpus of 100 clothing product descriptions and supports ranked
 free-text search (Vector Space Model, lnc.ltc weighting), exact phrase
